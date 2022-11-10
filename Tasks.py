@@ -4,14 +4,11 @@ import re
 
 import tkinter as tk
 import tkinter.ttk as ttk
-# from tkinter import *
-# from tkinter.ttk import *
 
 treeColSpan     = 2
 treeRowSpan     = 2
 formColSpan     = 4
 formRowSpan     = 6
-
 
 class manager():
     def __init__(self, load_file = "tasklist.json"):
