@@ -1,7 +1,6 @@
 import datetime
 import json
 import re
-
 import tkinter as tk
 import tkinter.ttk as ttk
 
@@ -99,10 +98,11 @@ def placeTree(rootframe, manager_obj):
         master  = displayFrame
     )
     taskTree['columns'] = ("Task", "Priority", "Status", "Due")
+    # taskTree['columns'] = ("Task", "Priority", "Due")
     taskTree.column('#0', anchor=tk.CENTER, minwidth=25, width=75)
     taskTree.column('Task', anchor=tk.CENTER, minwidth=300, width=300)
     taskTree.column('Priority', anchor=tk.CENTER, minwidth=25, width=30)
-    taskTree.column('Status', anchor=tk.CENTER, minwidth=50, width=50)
+    taskTree.column('Status', anchor=tk.CENTER, minwidth=0, width=0)
     taskTree.column('Due', anchor=tk.CENTER, minwidth=100, width=100)
     taskTree.heading('#0', text="ID",  anchor=tk.CENTER)
     taskTree.heading('Task', text="Task", anchor=tk.CENTER)
@@ -242,6 +242,11 @@ def placeGroupAddEdit(editFrame, manager_obj, taskTree, AETaskGroup):
     submitButtom    = ttk.Button(master=editFrame, text=f"{'Add' if addEdit.get() == 'a' else 'Edit'} Group", command=groupAddEdit)
     submitButtom.grid(column=0, row=5, sticky=tk.W)
 
+def load_styles(root):
+    root.tk.call('lappend', 'auto_path', './themes/awthemes')
+    root.tk.call('package', 'require', 'awdark')
+
+    root.tk.call('source', './themes/black_ttk.tcl')
 
 if __name__ == "__main__":
     padding = {
@@ -251,6 +256,13 @@ if __name__ == "__main__":
     mobj = manager()
     root = tk.Tk()
     root.title("TaskView v1.0")
+    root.resizable(False, False)
+    root.configure(bg="#33393b")
+
+    load_styles(root)
+    style = ttk.Style()
+    # print(style.theme_names())
+    style.theme_use("awdark")
 
     # mobj.add_task("144")
     # mobj.add_group("Hi", priority=2)
@@ -262,7 +274,7 @@ if __name__ == "__main__":
     editFrameTask   = ttk.Labelframe(
         master  = root,
         relief  = tk.RAISED,
-        text    = "Add/Edit Tasks"
+        text    = "Add/Edit Tasks",
     )
     editFrameGroup   = ttk.Labelframe(
         master  = root,
